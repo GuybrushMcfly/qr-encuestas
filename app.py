@@ -54,7 +54,7 @@ if nombre_actividad and codigo_curso:
     ]
     draw.rectangle(box, fill="white")
     draw.text(
-        ((ancho - text_width) // 4, (alto - text_height) // 4),
+        ((ancho - text_width) // 2, (alto - text_height) // 2),
         texto,
         font=fuente,
         fill="black"
