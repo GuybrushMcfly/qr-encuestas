@@ -4,6 +4,7 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
+from qrcode.image.styles.eyedrawers import RoundedEyeDrawer
 from pathlib import Path
 from qrcode.image.styles.colormasks import SolidFillColorMask
 
