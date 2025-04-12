@@ -33,7 +33,7 @@ if nombre_actividad and codigo_curso:
     ancho, alto = img_qr.size
 
     try:
-        fuente = ImageFont.truetype("arial.ttf", size=40)  # 🔸 Tamaño más grande
+        fuente = ImageFont.truetype("arial.ttf", size=60)  # 🔸 Tamaño más grande
     except:
         fuente = ImageFont.load_default()
 
