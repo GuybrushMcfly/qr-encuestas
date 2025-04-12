@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
 from pathlib import Path
+from qrcode.image.styles.colormasks import SolidFillColorMask
 
 # ---- Configuración de la página ----
 st.set_page_config(page_title="QR con texto central", layout="centered")
@@ -28,10 +29,12 @@ if nombre_actividad and codigo_curso:
     img_qr = qr.make_image(
         image_factory=StyledPilImage,
         module_drawer=RoundedModuleDrawer(),
-        color_mask=None,
-        fill_color=(0, 102, 139),      # <- Azul Pantone 7700 C
-        back_color=(255, 255, 255)     # <- Fondo blanco
+        color_mask=SolidFillColorMask(
+            back_color=(255, 255, 255),       # Blanco
+            front_color=(0, 102, 139)         # Azul Pantone 7700 C
+        )
     ).convert("RGBA")
+    
 
     # ---- Dibujar el texto central ----
     draw = ImageDraw.Draw(img_qr)
