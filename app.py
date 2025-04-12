@@ -32,16 +32,19 @@ if nombre_actividad and codigo_curso:
     draw = ImageDraw.Draw(img_qr)
     ancho, alto = img_qr.size
 
-    # Fuente y tamaño dinámico
     try:
-        fuente = ImageFont.truetype("arial.ttf", size=20)
+        fuente = ImageFont.truetype("arial.ttf", size=22)
     except:
         fuente = ImageFont.load_default()
 
     texto = nombre_actividad
-    text_width, text_height = draw.textsize(texto, font=fuente)
 
-    # Fondo blanco detrás del texto (como una etiqueta)
+    # ✅ Método alternativo para medir texto
+    bbox = draw.textbbox((0, 0), texto, font=fuente)
+    text_width = bbox[2] - bbox[0]
+    text_height = bbox[3] - bbox[1]
+
+    # Fondo blanco detrás del texto
     padding = 10
     box = [
         (ancho - text_width) // 2 - padding,
@@ -49,7 +52,7 @@ if nombre_actividad and codigo_curso:
         (ancho + text_width) // 2 + padding,
         (alto + text_height) // 2 + padding
     ]
-    draw.rectangle(box, fill="white", outline=None)
+    draw.rectangle(box, fill="white")
     draw.text(
         ((ancho - text_width) // 2, (alto - text_height) // 2),
         texto,
@@ -66,6 +69,3 @@ if nombre_actividad and codigo_curso:
 
     nombre_archivo = f"QR-{nombre_actividad.replace(' ', '_')}.png"
     st.download_button("📥 Descargar QR", data=qr_bytes, file_name=nombre_archivo, mime="image/png")
-
-
-
