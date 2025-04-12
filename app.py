@@ -30,7 +30,7 @@ if nombre_actividad and codigo_curso:
     img_qr = qr.make_image(
         image_factory=StyledPilImage,
         module_drawer=RoundedModuleDrawer(),
-        eye_drawer=RoundedEyeDrawer(),
+     #  eye_drawer=RoundedEyeDrawer(),
         color_mask=SolidFillColorMask(
             back_color=(255, 255, 255),       # Blanco
             front_color=(0, 102, 139)         # Azul Pantone 7700 C
