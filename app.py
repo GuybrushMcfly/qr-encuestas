@@ -29,7 +29,7 @@ if nombre_actividad and codigo_curso:
         image_factory=StyledPilImage,
 #        module_drawer=RoundedModuleDrawer()
         module_drawer=module_drawer(),
-        eye_drawer=module_drawer())
+        eye_drawer=module_drawer()
     )
    
    
