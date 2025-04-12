@@ -45,7 +45,7 @@ if nombre_actividad and codigo_curso:
     # Intentar cargar la fuente personalizada
     try:
         fuente_path = Path("DejaVuSansCondensed.ttf")
-        fuente = ImageFont.truetype(str(fuente_path), size=15)  # Ajustá el tamaño acá
+        fuente = ImageFont.truetype(str(fuente_path), size=20)  # Ajustá el tamaño acá
     except:
         fuente = ImageFont.load_default()
 
