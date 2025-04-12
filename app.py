@@ -24,9 +24,13 @@ if nombre_actividad and codigo_curso:
     qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
     qr.add_data(url)
     qr.make(fit=True)
+    
     img_qr = qr.make_image(
         image_factory=StyledPilImage,
-        module_drawer=RoundedModuleDrawer()
+        module_drawer=RoundedModuleDrawer(),
+        color_mask=None,
+        fill_color=(0, 102, 139),      # <- Azul Pantone 7700 C
+        back_color=(255, 255, 255)     # <- Fondo blanco
     ).convert("RGBA")
 
     # ---- Dibujar el texto central ----
