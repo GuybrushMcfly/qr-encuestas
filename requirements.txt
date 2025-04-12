@@ -1,4 +1,4 @@
 streamlit
 qrcode
 pillow
-qrcode[pil]
+qrcode[pil] >= 7.4
