@@ -4,6 +4,7 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
+from pathlib import Path
 
 # ---- Configuración de la página ----
 st.set_page_config(page_title="QR con texto central", layout="centered")
@@ -28,12 +29,14 @@ if nombre_actividad and codigo_curso:
         module_drawer=RoundedModuleDrawer()
     ).convert("RGBA")
 
-    # ---- Dibujar el nombre en el centro ----
+    # ---- Dibujar el texto central ----
     draw = ImageDraw.Draw(img_qr)
     ancho, alto = img_qr.size
 
+    # Intentar cargar la fuente personalizada
     try:
-        fuente = ImageFont.truetype("arial.ttf", size=80)  # 🔸 Tamaño más grande
+        fuente_path = Path("DejaVuSansCondensed.ttf")
+        fuente = ImageFont.truetype(str(fuente_path), size=48)  # Ajustá el tamaño acá
     except:
         fuente = ImageFont.load_default()
 
@@ -44,8 +47,8 @@ if nombre_actividad and codigo_curso:
     text_width = bbox[2] - bbox[0]
     text_height = bbox[3] - bbox[1]
 
-    # Fondo blanco con padding
-    padding = 20
+    # Dibujar fondo blanco
+    padding = 10
     box = [
         (ancho - text_width) // 2 - padding,
         (alto - text_height) // 2 - padding,
@@ -54,7 +57,7 @@ if nombre_actividad and codigo_curso:
     ]
     draw.rectangle(box, fill="white")
 
-    # Escribir el texto centrado
+    # Dibujar el texto
     draw.text(
         ((ancho - text_width) // 2, (alto - text_height) // 2),
         texto,
