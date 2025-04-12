@@ -10,7 +10,7 @@ from qrcode.image.styles.colormasks import SolidFillColorMask
 
 # ---- Configuración de la página ----
 st.set_page_config(page_title="QR con texto central", layout="centered")
-st.title("📋 Generador de QR con texto en el centro")
+st.title("📋 Generador de QR Encuestas")
 
 # ---- Inputs ----
 nombre_actividad = st.text_input("📝 Nombre de la actividad", placeholder="Ej: Word Básico")
@@ -45,7 +45,7 @@ if nombre_actividad and codigo_curso:
     # Intentar cargar la fuente personalizada
     try:
         fuente_path = Path("DejaVuSansCondensed.ttf")
-        fuente = ImageFont.truetype(str(fuente_path), size=20)  # Ajustá el tamaño acá
+        fuente = ImageFont.truetype(str(fuente_path), size=25)  # Ajustá el tamaño acá
     except:
         fuente = ImageFont.load_default()
 
