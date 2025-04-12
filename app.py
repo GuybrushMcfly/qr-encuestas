@@ -2,35 +2,37 @@ import streamlit as st
 import qrcode
 from io import BytesIO
 
-# ---- CONFIGURACIÓN DE LA PÁGINA ----
+# ---- Configuración de la página ----
 st.set_page_config(page_title="Generador de QR para Encuestas", layout="centered")
 
-st.title("🎯 Generador de URL + Código QR para Encuestas")
+st.title("📋 Generador de QR para Encuestas")
 
-# ---- ENTRADA DEL CÓDIGO DE CURSO ----
-codigo = st.text_input("📌 Ingresá el código del curso (ej: word02):", max_chars=20)
+# ---- Inputs del usuario ----
+nombre_actividad = st.text_input("📝 Ingresá el *nombre de la actividad*", placeholder="Ej: Word Básico")
+codigo_curso = st.text_input("📌 Ingresá el *código del curso*", placeholder="Ej: word02")
 
-# ---- GENERACIÓN DE URL Y QR ----
-if codigo:
-    url_final = f"https://encuestas-dcycp.streamlit.app/?curso={codigo}"
-    st.markdown(f"🔗 URL generada: **[{url_final}]({url_final})**")
+# ---- Si ambos campos fueron completados ----
+if nombre_actividad and codigo_curso:
+    nombre_actividad = nombre_actividad.strip().upper()
+    codigo_curso = codigo_curso.strip().upper()
 
-    # Generar QR
-    qr = qrcode.make(url_final)
+    url = f"https://encuestas-dcycp.streamlit.app/?curso={codigo_curso}"
+    st.markdown(f"🔗 URL generada: [{url}]({url})")
+
+    # ---- Generar QR ----
+    qr = qrcode.make(url)
     buffer = BytesIO()
     qr.save(buffer, format="PNG")
     qr_bytes = buffer.getvalue()
 
-    # Mostrar QR
-    st.image(qr_bytes, caption="Código QR", use_column_width=False)
+    st.image(qr_bytes, caption="🖨️ Código QR generado", use_container_width=False)
 
-    # Botón para descargar
-    nombre_archivo = f"QR-{codigo}.png"
+    # ---- Descargar QR ----
+    nombre_archivo = f"QR-{nombre_actividad.replace(' ', '_')}.png"
     st.download_button(
-        label="⬇️ Descargar QR",
+        label="📥 Descargar QR",
         data=qr_bytes,
         file_name=nombre_archivo,
         mime="image/png"
     )
-else:
-    st.info("Ingresá un código de curso para generar la URL y el QR.")
+
