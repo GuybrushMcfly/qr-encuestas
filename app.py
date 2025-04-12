@@ -33,19 +33,19 @@ if nombre_actividad and codigo_curso:
     ancho, alto = img_qr.size
 
     try:
-        fuente = ImageFont.truetype("arial.ttf", size=22)
+        fuente = ImageFont.truetype("arial.ttf", size=40)  # 🔸 Tamaño más grande
     except:
         fuente = ImageFont.load_default()
 
     texto = nombre_actividad
 
-    # ✅ Método alternativo para medir texto
+    # Medir el texto
     bbox = draw.textbbox((0, 0), texto, font=fuente)
     text_width = bbox[2] - bbox[0]
     text_height = bbox[3] - bbox[1]
 
-    # Fondo blanco detrás del texto
-    padding = 10
+    # Fondo blanco con padding
+    padding = 20
     box = [
         (ancho - text_width) // 2 - padding,
         (alto - text_height) // 2 - padding,
@@ -53,6 +53,8 @@ if nombre_actividad and codigo_curso:
         (alto + text_height) // 2 + padding
     ]
     draw.rectangle(box, fill="white")
+
+    # Escribir el texto centrado
     draw.text(
         ((ancho - text_width) // 2, (alto - text_height) // 2),
         texto,
