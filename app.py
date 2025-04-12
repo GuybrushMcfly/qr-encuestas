@@ -1,6 +1,8 @@
 import streamlit as st
-import qrcode
 from io import BytesIO
+import qrcode
+from qrcode.image.styledpil import StyledPilImage
+from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
 
 # ---- Configuración de la página ----
 st.set_page_config(page_title="Generador de QR para Encuestas", layout="centered")
@@ -19,13 +21,20 @@ if nombre_actividad and codigo_curso:
     url = f"https://encuestas-dcycp.streamlit.app/?curso={codigo_curso}"
     st.markdown(f"🔗 URL generada: [{url}]({url})")
 
-    # ---- Generar QR ----
-    qr = qrcode.make(url)
+    # ---- Generar QR redondeado ----
+    qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
+    qr.add_data(url)
+    qr.make(fit=True)
+    img = qr.make_image(
+        image_factory=StyledPilImage,
+        module_drawer=RoundedModuleDrawer()
+    )
+
     buffer = BytesIO()
-    qr.save(buffer, format="PNG")
+    img.save(buffer, format="PNG")
     qr_bytes = buffer.getvalue()
 
-    st.image(qr_bytes, caption="🖨️ Código QR generado", use_container_width=False)
+    st.image(qr_bytes, caption="🖨️ Código QR estilo redondeado", use_container_width=False)
 
     # ---- Descargar QR ----
     nombre_archivo = f"QR-{nombre_actividad.replace(' ', '_')}.png"
@@ -35,4 +44,5 @@ if nombre_actividad and codigo_curso:
         file_name=nombre_archivo,
         mime="image/png"
     )
+
 
