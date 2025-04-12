@@ -27,14 +27,17 @@ if nombre_actividad and codigo_curso:
     qr.make(fit=True)
     img = qr.make_image(
         image_factory=StyledPilImage,
-        module_drawer=RoundedModuleDrawer()
+#        module_drawer=RoundedModuleDrawer()
+        module_drawer=module_drawer(),
+        eye_drawer=module_drawer())
     )
-
+   
+   
     buffer = BytesIO()
     img.save(buffer, format="PNG")
     qr_bytes = buffer.getvalue()
 
-    st.image(qr_bytes, caption="🖨️ Código QR estilo redondeado", use_container_width=False)
+    st.image(qr_bytes, caption="🖨️ Código QR listo", use_container_width=False)
 
     # ---- Descargar QR ----
     nombre_archivo = f"QR-{nombre_actividad.replace(' ', '_')}.png"
