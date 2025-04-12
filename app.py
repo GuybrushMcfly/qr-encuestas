@@ -21,15 +21,13 @@ if nombre_actividad and codigo_curso:
     url = f"https://encuestas-dcycp.streamlit.app/?curso={codigo_curso}"
     st.markdown(f"🔗 URL generada: [{url}]({url})")
 
-    # ---- Generar QR redondeado ----
+    # ---- Generar QR con estilo redondeado ----
     qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
     qr.add_data(url)
     qr.make(fit=True)
     img = qr.make_image(
         image_factory=StyledPilImage,
-#        module_drawer=RoundedModuleDrawer()
-        module_drawer=module_drawer(),
-        eye_drawer=module_drawer()
+        module_drawer=RoundedModuleDrawer()
     )
    
    
